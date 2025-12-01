@@ -26,6 +26,6 @@ local seconds = average
 local milliseconds = seconds * 1000
 local microseconds = milliseconds * 1000
 
-print("AoC 2025 Day 1 Part 1")
+print("AoC 2025 Day 2 Part 2")
 print(string.format("De average is: %f seconden, (of %f milliseconden), (of %f microseconden)", 
     seconds, milliseconds, microseconds))
