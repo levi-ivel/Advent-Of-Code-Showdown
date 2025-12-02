@@ -17,26 +17,26 @@ function SolvePart1()
                 -- Shoutout to https://www.quora.com/What-is-the-sum-of-all-numbers-between-two-given-numbers and https://stackoverflow.com/questions/16344284/how-to-generate-a-list-of-palindrome-numbers-within-a-given-range and https://www.geeksforgeeks.org/dsa/generate-palindromic-numbers-less-n/ and https://www.geeksforgeeks.org/dsa/sum-first-k-even-length-palindrome-numbers/
 
                 -- Using only even digits
-                for digit = 1, math.floor(lastDigit / 2) do
-                    -- Make a base that mirrors numbers of that digit count
-                    local base = 10^digit + 1
+                for k = 1, math.floor(lastDigit / 2) do
+                    -- A palindrome of length 2 * k can be constructed by leftHalf * (10^k + 1)
+                    -- So multiplying mirrors the k
+                    local base = 10^k + 1
 
-                    -- Get the min and max valuess that can form palindromes and fit in the range
-                    local minValue = math.max(math.ceil(first / base), 10^(digit-1))
-                    local maxValue = math.min(math.floor(last / base), 10^digit - 1)
+                    -- Get the valid range of leftHalf values such that leftHalf * base falls within [first, last]
+                    -- We clamp this further to ensure leftHalf has exactly k digits
+                    local minValue = math.max(math.ceil(first / base), 10^(k-1))
+                    local maxValue = math.min(math.floor(last / base), 10^k - 1)
 
-                    -- If a valid range is found
+                    -- If we have any valid leftHalf values
                     if minValue <= maxValue then
-                        -- Get the amount of numbers in the range
+                        -- Number of leftHalf values
                         local count = maxValue - minValue + 1
 
-                        -- Calculate the sum of al numbers in tge range
+                        -- Sum the leftHalf values
                         local sum = (minValue + maxValue) * count / 2
 
-                        -- Multiply by the base to get the total sum of the palindromes
-                        local total = base * sum
-
-                        counter = counter + total
+                        -- Convert them back into actual palindromes by multiplying to the base
+                        counter = counter + base * sum
                     end
                 end
             end
